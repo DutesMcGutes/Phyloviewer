@@ -1,0 +1,23 @@
+#description {
+  margin: 20px auto;
+  width: 80%;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+#description h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+#description h3 {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+#description p {
+  font-size: 16px;
+  text-align: justify;
+}
