@@ -1,4 +1,4 @@
-// Data: Matrix and Labels
+// Data matrix and labeling
 const data = [
     [0, 20, 10, 5],
     [20, 0, 15, 10],
@@ -8,13 +8,13 @@ const data = [
   
   const labels = ["Species A", "Species B", "Species C", "Species D"];
   
-  // Dimensions
+  // Dimensions for viz
   const width = 700;
   const height = 700;
   const outerRadius = Math.min(width, height) * 0.5 - 40;
   const innerRadius = outerRadius - 30;
   
-  // Create SVG Container
+  // create SVG Container
   const svg = d3.select("#chart")
     .append("svg")
     .attr("width", width)
@@ -22,15 +22,15 @@ const data = [
     .append("g")
     .attr("transform", `translate(${width / 2},${height / 2})`);
   
-  // Create Chord Layout
+  // make Chord Layout
   const chord = d3.chord()
     .padAngle(0.05) // Padding between groups
     .sortSubgroups(d3.descending)(data);
   
-  // Color Scale
+  // color Scale
   const color = d3.scaleOrdinal(d3.schemeCategory10);
   
-  // Draw Groups (Arcs)
+  // Draw Groups (as arcs)
   const group = svg.append("g")
     .selectAll("g")
     .data(chord.groups)
@@ -41,7 +41,7 @@ const data = [
     .style("stroke", d => d3.rgb(color(d.index)).darker())
     .attr("d", d3.arc().innerRadius(innerRadius).outerRadius(outerRadius));
   
-  // Add Labels to Groups
+  // Group labels
   group.append("text")
     .each(d => (d.angle = (d.startAngle + d.endAngle) / 2))
     .attr("dy", ".35em")
@@ -53,7 +53,7 @@ const data = [
     .style("text-anchor", d => (d.angle > Math.PI ? "end" : null))
     .text(d => labels[d.index]);
   
-  // Draw Chords (Relationships)
+  // Draw Chords (Relationships btwn Species)
   svg.append("g")
     .attr("fill-opacity", 0.67)
     .selectAll("path")
@@ -63,7 +63,7 @@ const data = [
     .style("fill", d => color(d.target.index))
     .style("stroke", d => d3.rgb(color(d.target.index)).darker());
   
-  // Interactivity: Highlight Connections
+  // Interactive feature for Highlighting 
   group.on("mouseover", (event, d) => {
     svg.selectAll("path")
       .style("opacity", 0.1);
